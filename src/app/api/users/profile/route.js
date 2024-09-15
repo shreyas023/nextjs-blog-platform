@@ -1,6 +1,7 @@
 import clientPromise from "@/utils/db";
 import { verifyToken } from "@/utils/auth";
 import { NextResponse } from "next/server";
+import { ObjectId } from "mongodb"; // Import ObjectId
 
 export async function GET(req) {
   try {
@@ -17,7 +18,7 @@ export async function GET(req) {
     }
 
     const client = await clientPromise;
-    const db = client.db();
+    const db = client.db("InspiraAI");
 
     // Fetch user data
     const user = await db.collection("users").findOne(
@@ -31,6 +32,7 @@ export async function GET(req) {
 
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
+    console.error("Error fetching profile:", error); // Log the error
     return NextResponse.json({ error: "Failed to fetch profile" }, { status: 500 });
   }
 }

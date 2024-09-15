@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db();
+    const db = client.db("InspiraAI");
     
     const blogs = await db.collection("blogs").find().toArray();
     
@@ -19,7 +19,7 @@ export async function GET() {
 export async function POST(req) {
   try {
     const client = await clientPromise;
-    const db = client.db();
+    const db = client.db("InspiraAI");
 
     const { title, content, authorId } = await req.json();
     

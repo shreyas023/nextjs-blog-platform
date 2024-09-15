@@ -1,18 +1,12 @@
-import { signIn } from "next-auth/react";
+// src/app/auth/page.js
 
-export default function Login() {
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    await signIn("credentials", { email, password });
-  };
+import LoginForm from "../../components/LoginForm";
 
+export default function AuthPage() {
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" name="email" placeholder="Email" />
-      <input type="password" name="password" placeholder="Password" />
-      <button type="submit">Login</button>
-    </form>
+    <div>
+      <h1>Login</h1>
+      <LoginForm />
+    </div>
   );
 }
