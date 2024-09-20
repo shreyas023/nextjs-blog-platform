@@ -22,9 +22,18 @@ export async function GET(req) {
 
     // Fetch user data
     const user = await db.collection("users").findOne(
-      { _id: new ObjectId(decoded.userId) },
-      { projection: { password: 0 } } // Exclude the password field
-    );
+        { _id: new ObjectId(decoded.userId) },
+        {
+          projection: {
+            username: 1,        // Include username
+            email: 1,           // Include email
+            createdBlogs: 1,    // Include createdBlogs
+            favouriteBlogs: 1,  // Include favouriteBlogs
+            likedBlogs: 1       // Include likedBlogs
+          }
+        }
+      );
+      
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

@@ -25,6 +25,7 @@ export async function POST(req) {
       password: hashedPassword,
       createdBlogs: [],
       likedBlogs: [],
+      favouriteBlogs: [],
       comments: [],
       genAIUsage: { articleGenerationTrials: 2, imageGenerationTrials: 2, seoSuggestionTrials: 2 },
       createdAt: new Date(),
