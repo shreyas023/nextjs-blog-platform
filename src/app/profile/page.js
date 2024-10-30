@@ -2,10 +2,12 @@
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const [userData, setUserData] = useState({
     profilePic: "/default-profile.png", // Placeholder if no profile pic
+    _id: "",
     username: "",
     email: "",
     blogs: [],
@@ -13,9 +15,15 @@ export default function Profile() {
   });
 
   const [showModal, setShowModal] = useState(false); // Modal state
+  const [showModal1, setShowModal1] = useState(false); // Modal state
   const [name, setName] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [featuredImage, setFeaturedImage] = useState(null); // For image upload
+  const [seoKeywords, setSeoKeywords] = useState("");
+  const router = useRouter();
 
   // Fetch user data
   useEffect(() => {
@@ -35,6 +43,7 @@ export default function Profile() {
           }
           setUserData({
             profilePic: data.profilePic || "/default-profile.png", // Use default if no pic
+            _id: data._id,
             username: data.username,
             email: data.email,
             blogs: data.createdBlogs || [],
@@ -52,6 +61,43 @@ export default function Profile() {
   const handleEditProfile = () => {
     setName(userData.username); // Pre-fill the username in modal
     setShowModal(true);
+  };
+
+  // Handle create blog
+  const createBlogs = () => {
+    setShowModal1(true); // Open create blog modal
+  };
+
+  const handleBlogSubmit = async (e) => {
+    e.preventDefault();
+
+    const blogData = {
+      title,
+      content,
+      authorId: userData._id,
+      featuredImage,
+      seoKeywords,
+    };
+
+    try {
+      const response = await fetch("/api/blogs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(blogData),
+      });
+
+      if (response.ok) {
+        // Redirect to the blog list or show success message
+        router.push("/blogs");
+      } else {
+        console.error("Failed to create blog");
+      }
+    } catch (error) {
+      console.error("Error creating blog:", error);
+    }
   };
 
   const validateForm = () => {
@@ -160,7 +206,87 @@ export default function Profile() {
             ))}
           </div>
         )}
+      
+        {/* Create Blogs Button */}
+        <div className="mt-4 flex justify-end">
+        <button
+          onClick={createBlogs}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+          >
+          Create Blogs
+        </button>
       </div>
+      </div>
+
+      {/* Modal for Creating Blogs */}
+      {showModal1 && (
+        <div className="fixed z-10 inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
+            <h2 className="text-xl font-bold mb-4">Create Blog</h2>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-2">Title</label>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Enter blog title"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-2">Content</label>
+              <textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Enter blog content"
+                rows="6"
+              />
+            </div>
+
+            <div className="mb-4">
+        <label htmlFor="seoKeywords" className="block text-sm font-bold mb-2">
+          SEO Keywords (comma separated)
+        </label>
+        <input
+          type="text"
+          id="seoKeywords"
+          value={seoKeywords}
+          onChange={(e) => setSeoKeywords(e.target.value)}
+          className="w-full px-3 py-2 border rounded-md"
+          placeholder="e.g., JavaScript, async, tutorial"
+          required
+        />
+      </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-2">Featured Image (Optional)</label>
+              <input
+                type="file"
+                onChange={(e) => setFeaturedImage(e.target.files[0])}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={handleBlogSubmit}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+              >
+                Submit Blog
+              </button>
+              <button
+                onClick={() => setShowModal1(false)}
+                className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Favorite Blogs Section */}
       <div className="w-full max-w-4xl mt-6 bg-white rounded-lg shadow-lg p-6">
