@@ -1,5 +1,6 @@
 import clientPromise from "@/utils/db";
 import { NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
 
 // GET: Fetch all blogs
 export async function GET() {
@@ -18,22 +19,49 @@ export async function GET() {
 // POST: Create a new blog
 export async function POST(req) {
   try {
+    // Connect to MongoDB
     const client = await clientPromise;
     const db = client.db("InspiraAI");
 
-    const { title, content, authorId } = await req.json();
+    // Parse the incoming request data
+    const { title, content, authorId, featuredImage, seoKeywords } = await req.json();
     
+    // Validate required fields
+    if (!title || !content || !seoKeywords) {
+      return NextResponse.json(
+        { error: "Missing required fields: title, content, featuredImage, or seoKeywords" }, 
+        { status: 400 }
+      );
+    }
+
+    // Create the new blog document
     const newBlog = {
+      authorId,
       title,
       content,
-      authorId,
+      featuredImage : featuredImage || "",
+      seoKeywords: seoKeywords.split(",").map(keyword => keyword.trim()), // Convert keywords to array
+      likes: [], // Initialize empty likes array
+      comments: [], // Initialize empty comments array
       createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
+    // Insert the new blog into the "blogs" collection
     const result = await db.collection("blogs").insertOne(newBlog);
-    
-    return NextResponse.json(result, { status: 201 });
+
+    // Return a success response
+    return NextResponse.json(
+      { message: "Blog created successfully", blogId: result.insertedId }, 
+      { status: 201 }
+    );
   } catch (error) {
-    return NextResponse.json({ error: "Failed to create blog" }, { status: 500 });
+    console.error("Error creating blog:", error);
+
+    // Return an error response
+    return NextResponse.json(
+      { error: "Failed to create blog" }, 
+      { status: 500 }
+    );
   }
 }
