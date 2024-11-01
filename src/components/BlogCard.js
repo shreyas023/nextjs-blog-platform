@@ -7,7 +7,7 @@ const BlogCard = ({ blog }) => {
       <div className="p-4">
         <h2 className="text-xl font-semibold">{blog.title}</h2>
         <p className="text-gray-600 mt-2">{blog.content.substring(0, 100)}...</p>
-        <Link href={`/blog/${blog._id}`} className="text-blue-500 hover:text-blue-700 mt-4 block">Read More</Link>
+        <Link href={`/blogs/${blog._id}`} className="text-blue-500 hover:text-blue-700 mt-4 block">Read More</Link>
       </div>
     </div>
   );

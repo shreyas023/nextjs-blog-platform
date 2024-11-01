@@ -21,3 +21,18 @@ export function verifyToken(token) {
     return null; // Return null if verification fails
   }
 }
+
+export function isTokenExpired(token) {
+  if (!token) return true;
+  console.log(token);
+  try {
+    const { exp } = jwt.decode(token); // Decode the token payload
+    if (!exp) return true;
+
+    const currentTime = Math.floor(Date.now() / 1000); // Get the current time in seconds
+    return exp < currentTime; // Token is expired if current time is past the expiration time
+  } catch (error) {
+    console.error("Token decoding error:", error);
+    return true;
+  }
+}
