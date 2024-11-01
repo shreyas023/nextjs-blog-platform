@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Profile() {
   const [userData, setUserData] = useState({
@@ -13,6 +14,7 @@ export default function Profile() {
     blogs: [],
     favoriteBlogs: [],
   });
+
 
   const [showModal, setShowModal] = useState(false); // Modal state
   const [showModal1, setShowModal1] = useState(false); // Modal state
@@ -91,7 +93,9 @@ export default function Profile() {
 
       if (response.ok) {
         // Redirect to the blog list or show success message
-        router.push("/blogs");
+        console.log("Blog created successfully");
+        setShowModal1(false); 
+        router.push("/");
       } else {
         console.error("Failed to create blog");
       }
@@ -164,6 +168,8 @@ export default function Profile() {
     window.location.href = "/login"; // Redirect to login page
   };
 
+  console.log(userData);
+
   return (
     <div className="min-h-screen bg-gray-100 p-4 flex flex-col items-center">
       {/* Profile Section */}
@@ -199,10 +205,10 @@ export default function Profile() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {userData.blogs.map((blog, index) => (
-              <div key={index} className="bg-gray-100 p-4 rounded shadow-sm">
+              <Link href={`/blogs/${blog._id}`}><div key={index} className="bg-gray-100 p-4 rounded shadow-sm">
                 <h4 className="font-bold">{blog.title}</h4>
-                <p className="text-gray-600">{blog.excerpt}</p>
-              </div>
+                <p className="text-gray-600">{typeof blog.content === "string" ? blog.content.substring(0, 100) : "Content not available"}...</p>
+              </div></Link>
             ))}
           </div>
         )}
