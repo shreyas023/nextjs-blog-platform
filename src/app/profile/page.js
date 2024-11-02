@@ -177,6 +177,8 @@ export default function Profile() {
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
           <Image
             src={userData.profilePic}
+            width={100}
+            height={100}
             alt="Profile Picture"
             className="w-24 h-24 rounded-full object-cover"
           />

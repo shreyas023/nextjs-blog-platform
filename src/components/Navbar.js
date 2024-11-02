@@ -44,6 +44,8 @@ export default function Navbar() {
                 <Image
                   src="/profile-icon.png" // Replace with a valid profile icon
                   alt="Profile"
+                  width={32}
+                  height={32}
                   className="w-8 h-8 rounded-full"
                 />
               </Link>
