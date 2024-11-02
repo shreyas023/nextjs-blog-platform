@@ -18,7 +18,7 @@ export default function Navbar() {
     <header className="bg-gray-800 text-white">
       <div className="container mx-auto p-4 flex justify-between items-center">
         <div className="text-2xl font-bold">
-          <span className="text-blue-400">Inspira</span>AI
+          <Link href="/"><span className="text-blue-400">Inspira</span>AI</Link>
         </div>
         <nav className="flex space-x-4">
           <Link href="/" className="hover:text-blue-400">
@@ -27,8 +27,8 @@ export default function Navbar() {
           <Link href="/about" className="hover:text-blue-400">
             About
           </Link>
-          <Link href="/seo" className="hover:text-blue-400">
-            SEO Keywords
+          <Link href="/content" className="hover:text-blue-400">
+            Content Generator
           </Link>
           <Link href="/image-generator" className="hover:text-blue-400">
             Image Generator
