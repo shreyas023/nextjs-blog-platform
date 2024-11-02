@@ -1,3 +1,6 @@
+import React from 'react';
+import Image from 'next/image';
+
 export default function About() {
     return (
       <div className="bg-gray-100">
@@ -65,7 +68,7 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Team Member 1 */}
               <div className="p-8 bg-gray-50 rounded-lg shadow-md">
-                <img
+                <Image
                   src="/team-member1.jpg"
                   alt="Team Member 1"
                   className="w-24 h-24 rounded-full mx-auto mb-4"
@@ -75,7 +78,7 @@ export default function About() {
               </div>
               {/* Team Member 2 */}
               <div className="p-8 bg-gray-50 rounded-lg shadow-md">
-                <img
+                <Image
                   src="/team-member2.jpg"
                   alt="Team Member 2"
                   className="w-24 h-24 rounded-full mx-auto mb-4"
@@ -85,7 +88,7 @@ export default function About() {
               </div>
               {/* Team Member 3 */}
               <div className="p-8 bg-gray-50 rounded-lg shadow-md">
-                <img
+                <Image
                   src="/team-member3.jpg"
                   alt="Team Member 3"
                   className="w-24 h-24 rounded-full mx-auto mb-4"

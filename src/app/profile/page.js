@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Profile() {
   const [userData, setUserData] = useState({
@@ -168,14 +169,13 @@ export default function Profile() {
     window.location.href = "/login"; // Redirect to login page
   };
 
-  console.log(userData);
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 flex flex-col items-center">
       {/* Profile Section */}
       <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
-          <img
+          <Image
             src={userData.profilePic}
             alt="Profile Picture"
             className="w-24 h-24 rounded-full object-cover"
@@ -205,7 +205,7 @@ export default function Profile() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {userData.blogs.map((blog, index) => (
-              <Link href={`/blogs/${blog._id}`}><div key={index} className="bg-gray-100 p-4 rounded shadow-sm">
+              <Link href={`/blogs/${blog._id}`} key={index}><div className="bg-gray-100 p-4 rounded shadow-sm">
                 <h4 className="font-bold">{blog.title}</h4>
                 <p className="text-gray-600">{typeof blog.content === "string" ? blog.content.substring(0, 100) : "Content not available"}...</p>
               </div></Link>

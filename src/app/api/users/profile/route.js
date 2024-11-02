@@ -1,7 +1,12 @@
 import clientPromise from "@/utils/db";
 import { verifyToken } from "@/utils/auth";
 import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb"; // Import ObjectId
+import { ObjectId } from "mongodb";
+
+// Mark this route as dynamic
+export const dynamic = 'force-dynamic';
+// Specify the runtime
+export const runtime = 'nodejs';
 
 export async function GET(req) {
   try {
@@ -22,18 +27,17 @@ export async function GET(req) {
 
     // Fetch user data
     const user = await db.collection("users").findOne(
-        { _id: new ObjectId(decoded.userId) },
-        {
-          projection: {
-            username: 1,        // Include username
-            email: 1,           // Include email
-            createdBlogs: 1,    // Include createdBlogs
-            favouriteBlogs: 1,  // Include favouriteBlogs
-            likedBlogs: 1       // Include likedBlogs
-          }
+      { _id: new ObjectId(decoded.userId) },
+      {
+        projection: {
+          username: 1,
+          email: 1,
+          createdBlogs: 1,
+          favouriteBlogs: 1,
+          likedBlogs: 1
         }
-      );
-      
+      }
+    );
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -41,7 +45,7 @@ export async function GET(req) {
 
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
-    console.error("Error fetching profile:", error); // Log the error
+    console.error("Error fetching profile:", error);
     return NextResponse.json({ error: "Failed to fetch profile" }, { status: 500 });
   }
 }
