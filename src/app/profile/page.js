@@ -13,7 +13,7 @@ export default function Profile() {
     username: "",
     email: "",
     blogs: [],
-    favoriteBlogs: [],
+    favouriteBlogs: [],
   });
 
 
@@ -50,7 +50,7 @@ export default function Profile() {
             username: data.username,
             email: data.email,
             blogs: data.createdBlogs || [],
-            favoriteBlogs: data.favoriteBlogs || [],
+            favouriteBlogs: data.favouriteBlogs || [],
           });
         })
         .catch((error) => {
@@ -296,18 +296,18 @@ export default function Profile() {
         </div>
       )}
 
-      {/* Favorite Blogs Section */}
+      {/* Favourite Blogs Section */}
       <div className="w-full max-w-4xl mt-6 bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-xl font-semibold mb-4">Favorite Blogs</h3>
-        {userData.favoriteBlogs.length === 0 ? (
-          <p className="text-gray-600">No favorite blogs yet.</p>
+        <h3 className="text-xl font-semibold mb-4">Favourite Blogs</h3>
+        {userData.favouriteBlogs.length === 0 ? (
+          <p className="text-gray-600">No favourite blogs yet.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {userData.favoriteBlogs.map((blog, index) => (
-              <div key={index} className="bg-gray-100 p-4 rounded shadow-sm">
+            {userData.favouriteBlogs.map((blog, index) => (
+              <Link href={`/blogs/${blog._id}`} key={index}><div className="bg-gray-100 p-4 rounded shadow-sm">
                 <h4 className="font-bold">{blog.title}</h4>
-                <p className="text-gray-600">{blog.excerpt}</p>
-              </div>
+                <p className="text-gray-600">{typeof blog.content === "string" ? blog.content.substring(0, 100) : "Content not available"}...</p>
+              </div></Link>
             ))}
           </div>
         )}
