@@ -1,4 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+// next.config.mjs
 
-export default nextConfig;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    images: {
+      domains: ['your-s3-url.com'], // Replace with your actual S3 bucket domain
+    },
+  };
+  
+  export default nextConfig;
+  

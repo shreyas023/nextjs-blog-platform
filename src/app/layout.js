@@ -2,7 +2,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar"; // Import Navbar
 import Footer from "@/components/Footer"; // Import Footer
-import TokenExpirationHandler from "@/components/TokenExpirationHandler";
 
 
 // Metadata for SEO
@@ -54,7 +53,6 @@ export default function RootLayout({ children }) {
       <body
         className={`font-sans antialiased subpixel-antialiased bg-gray-50`}
       >
-        <TokenExpirationHandler />
         <Navbar /> {/* Navbar Component */}
         <main className="min-h-screen">{children}</main>
         <Footer /> {/* Footer Component */}

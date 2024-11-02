@@ -70,6 +70,8 @@ export default function About() {
               <div className="p-8 bg-gray-50 rounded-lg shadow-md">
                 <Image
                   src="/team-member1.jpg"
+                  height={200}
+                  width={200}
                   alt="Team Member 1"
                   className="w-24 h-24 rounded-full mx-auto mb-4"
                 />
@@ -80,6 +82,8 @@ export default function About() {
               <div className="p-8 bg-gray-50 rounded-lg shadow-md">
                 <Image
                   src="/team-member2.jpg"
+                  height={200}
+                  width={200}
                   alt="Team Member 2"
                   className="w-24 h-24 rounded-full mx-auto mb-4"
                 />
@@ -90,6 +94,8 @@ export default function About() {
               <div className="p-8 bg-gray-50 rounded-lg shadow-md">
                 <Image
                   src="/team-member3.jpg"
+                  height={200}
+                  width={200}
                   alt="Team Member 3"
                   className="w-24 h-24 rounded-full mx-auto mb-4"
                 />

@@ -45,6 +45,8 @@ export default function BlogPage() {
       {blog.featuredImage && (
         <Image 
           src={blog.featuredImage} 
+          width={800}
+          height={400}
           alt={blog.title} 
           className="w-full h-64 object-cover rounded-md mb-6 shadow-lg"
         />
