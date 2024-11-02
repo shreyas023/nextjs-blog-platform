@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation'; // Import useParams
 import Modal from '@/components/Modal';
+import Image from 'next/image';
 
 export default function BlogPage() {
   const { id } = useParams(); // Capture the blog id from the URL
@@ -42,7 +43,7 @@ export default function BlogPage() {
     <div className="max-w-3xl mx-auto p-4 mt-10">
       {/* Featured Image */}
       {blog.featuredImage && (
-        <img 
+        <Image 
           src={blog.featuredImage} 
           alt={blog.title} 
           className="w-full h-64 object-cover rounded-md mb-6 shadow-lg"

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,7 +41,7 @@ export default function Navbar() {
             <>
               {/* Profile Icon and Logout Button */}
               <Link href="/profile">
-                <img
+                <Image
                   src="/profile-icon.png" // Replace with a valid profile icon
                   alt="Profile"
                   className="w-8 h-8 rounded-full"

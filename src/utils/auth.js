@@ -24,7 +24,6 @@ export function verifyToken(token) {
 
 export function isTokenExpired(token) {
   if (!token) return true;
-  console.log(token);
   try {
     const { exp } = jwt.decode(token); // Decode the token payload
     if (!exp) return true;
