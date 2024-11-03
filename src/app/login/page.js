@@ -146,7 +146,7 @@ export default function Login() {
         >
           Login
         </button>
-        <span className="block mt-8 text-center">Don't have an account? <Link href="/register" className="text-blue-500 hover:text-blue-700">Register</Link></span>
+        <span className="block mt-8 text-center">Don&apos;t have an account? <Link href="/register" className="text-blue-500 hover:text-blue-700">Register</Link></span>
       </form>
       
       <ToastContainer />
