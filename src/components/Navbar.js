@@ -27,10 +27,10 @@ export default function Navbar() {
           <Link href="/about" className="hover:text-blue-400">
             About
           </Link>
-          <Link href="/content" className="hover:text-blue-400">
+          <Link href={isLoggedIn ? "/content" : "/login"} className="hover:text-blue-400">
             Content Generator
           </Link>
-          <Link href="/image-generator" className="hover:text-blue-400">
+          <Link href={isLoggedIn ? "/image" : "/login"} className="hover:text-blue-400">
             Image Generator
           </Link>
         </nav>

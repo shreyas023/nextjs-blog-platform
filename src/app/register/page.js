@@ -130,7 +130,7 @@ export default function Register() {
   return (
     <div className="flex justify-center items-center h-screen">
       <form onSubmit={handleRegister} className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-6">Register</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
         <input
           type="text"
           name="username"

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation"; // App Router hook
+import Link from "next/link";
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -120,7 +121,7 @@ export default function Login() {
   return (
     <div className="flex justify-center items-center h-screen">
       <form onSubmit={handleLogin} className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-6">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <input
           type="email"
           name="email"
@@ -145,7 +146,9 @@ export default function Login() {
         >
           Login
         </button>
+        <span className="block mt-8 text-center">Don't have an account? <Link href="/register" className="text-blue-500 hover:text-blue-700">Register</Link></span>
       </form>
+      
       <ToastContainer />
     </div>
   );

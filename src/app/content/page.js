@@ -1,13 +1,24 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { FaCopy } from "react-icons/fa6";
 
 export default function ContentGeneratorPage() {
+    const router = useRouter();
   const [prompt, setPrompt] = useState('');
   const [blogContent, setBlogContent] = useState('');
   const [seoKeywords, setSeoKeywords] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
