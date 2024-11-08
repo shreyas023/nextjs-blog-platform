@@ -65,7 +65,7 @@ export default function About() {
         <section className="py-16 bg-white">
           <div className="container mx-auto text-center">
             <h2 className="text-3xl font-bold mb-8">Meet the Team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
               {/* Team Member 1 */}
               <div className="p-8 bg-gray-50 rounded-lg shadow-md">
                 <Image
@@ -78,30 +78,7 @@ export default function About() {
                 <h3 className="text-xl font-bold">Shreyas Bailkar</h3>
                 <p className="text-gray-600">Founder & CEO</p>
               </div>
-              {/* Team Member 2 */}
-              <div className="p-8 bg-gray-50 rounded-lg shadow-md">
-                <Image
-                  src="/team-member2.jpg"
-                  height={200}
-                  width={200}
-                  alt="Team Member 2"
-                  className="w-24 h-24 rounded-full mx-auto mb-4"
-                />
-                <h3 className="text-xl font-bold">John Doe</h3>
-                <p className="text-gray-600">Lead Developer</p>
-              </div>
-              {/* Team Member 3 */}
-              <div className="p-8 bg-gray-50 rounded-lg shadow-md">
-                <Image
-                  src="/team-member3.jpg"
-                  height={200}
-                  width={200}
-                  alt="Team Member 3"
-                  className="w-24 h-24 rounded-full mx-auto mb-4"
-                />
-                <h3 className="text-xl font-bold">Jane Smith</h3>
-                <p className="text-gray-600">AI Researcher</p>
-              </div>
+              
             </div>
           </div>
         </section>
