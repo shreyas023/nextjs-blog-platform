@@ -16,7 +16,7 @@ export async function POST(req) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    // Compare the provided password with the stored hashed password
+    // Compare the provided password with the stored hashed password Priyanka@123 - kjdjgkdfg55g5d4fg
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });

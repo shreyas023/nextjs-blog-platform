@@ -26,9 +26,8 @@ export default function ImageGeneratorPage() {
         const token = localStorage.getItem("token");
         if (!token) {
             router.push('/login');
-            return;
         }
-    });
+    }, [router]); // Added dependency to avoid unnecessary re-renders
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -46,7 +45,7 @@ export default function ImageGeneratorPage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ prompt: prompt }),
+                body: JSON.stringify({ prompt }),
             });
 
             if (!response.ok) {
@@ -54,8 +53,7 @@ export default function ImageGeneratorPage() {
             }
 
             const data = await response.json();
-            // The API now returns base64 image data
-            setGeneratedImage(data.imageUrl); // This is already in base64 format
+            setGeneratedImage(data.imageUrl); // Ensure this URL is accessible
             setImageCaption(data.caption);
         } catch (err) {
             setError('Error generating image. Please try again.');
@@ -66,15 +64,12 @@ export default function ImageGeneratorPage() {
     };
 
     const downloadImage = () => {
+        if (!generatedImage) return;
+        
         try {
-            // Create a link element
             const link = document.createElement('a');
-            
-            // Use the base64 image data directly
             link.href = generatedImage;
             link.download = `generated-image-${Date.now()}.png`;
-            
-            // Trigger download
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -89,7 +84,7 @@ export default function ImageGeneratorPage() {
         alert('Prompt copied to clipboard!');
     };
 
-    const useSamplePrompt = (samplePrompt) => {
+    const handleSamplePrompt = (samplePrompt) => {
         setPrompt(samplePrompt);
     };
 
@@ -108,10 +103,10 @@ export default function ImageGeneratorPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {samplePrompts.map((samplePrompt, index) => (
                         <button
-                            key={index}
-                            onClick={() => useSamplePrompt(samplePrompt)}
-                            className="text-left p-2 text-sm border rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
-                        >
+                        key={index}
+                        onClick={() => handleSamplePrompt(samplePrompt)}
+                        className="text-left p-2 text-sm border rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2"
+                    >
                             <FaMagic className="text-blue-500" />
                             {samplePrompt.length > 60 ? samplePrompt.substring(0, 60) + '...' : samplePrompt}
                         </button>
@@ -125,7 +120,7 @@ export default function ImageGeneratorPage() {
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
                         className="w-full p-4 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                        placeholder="Describe the image you want to generate... Be specific about style, mood, and details."
+                        placeholder="Describe the image you want to generate..."
                         rows={4}
                     />
                 </div>
@@ -135,15 +130,7 @@ export default function ImageGeneratorPage() {
                     className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors w-full sm:w-auto disabled:bg-blue-300"
                     disabled={loading || !prompt.trim()}
                 >
-                    {loading ? (
-                        <span className="flex items-center justify-center gap-2">
-                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Generating...
-                        </span>
-                    ) : 'Generate Image'}
+                    {loading ? 'Generating...' : 'Generate Image'}
                 </button>
             </form>
 
@@ -191,10 +178,10 @@ export default function ImageGeneratorPage() {
                 <h3 className="text-lg font-semibold mb-2">Tips for Better Results:</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                     <li>Be specific about the subject, style, and mood you want</li>
-                    <li>Add technical terms like "4K", "HDR", "ultra-detailed" for higher quality</li>
-                    <li>Specify artistic styles: "watercolor", "oil painting", "digital art"</li>
-                    <li>Include lighting details: "soft morning light", "dramatic sunset"</li>
-                    <li>Add camera details: "wide angle", "close-up", "aerial view"</li>
+                    <li>Add technical terms like &quot;4K&quot;, &quot;HDR&quot;, &quot;ultra-detailed&quot;</li>
+                    <li>Specify artistic styles: &quot;watercolor&quot;, &quot;oil painting&quot;, &quot;digital art&quot;</li>
+                    <li>Include lighting details: &quot;soft morning light&quot;, &quot;dramatic sunset&quot;</li>
+                    <li>Add camera details: &quot;wide angle&quot;, &quot;close-up&quot;, &quot;aerial view&quot;</li>
                 </ul>
             </div>
         </div>
